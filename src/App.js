@@ -22,7 +22,15 @@ function App() {
         </ul>
       </header>
       <section className='content p-40'>
-        <h1 className='mb-40'>All Sneakers</h1>
+      <div className ='d-flex align-center justify-between mb-40'>
+      <h1>All Sneakers</h1>
+      <div className='search-block d-flex'>
+      <img src='/img/search.svg' alt='Search'/>
+      <input placeholder='Search'></input>
+      </div>
+      </div>
+
+       
         <div className='allSneackers d-flex justify-between'>
         <div className='card'>
        <img src='/img/sneakers/1.png' alt='plus' className='sneakers-pic'></img>
