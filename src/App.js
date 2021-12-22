@@ -2,6 +2,14 @@ import Card from './components/Card'
 import Header from './components/Header'
 import Drawer from './components/Drawer'
 
+const DB = [
+  {title: 'Mens shoes', price: 454, imageURL: './img/sneakers/1.png'},
+  {title: 'Mens shoes2', price: 424, imageURL: './img/sneakers/1.png'},
+  {title: 'Mens shoes3', price: 124, imageURL: './img/sneakers/1.png'},
+  {title: 'Mens shoes4', price: 554, imageURL: './img/sneakers/1.png'},
+]
+
+
 function App() {
   return (
     <div className="wrapper clear">
@@ -16,10 +24,17 @@ function App() {
           </div>
         </div>
         <div className='allSneackers d-flex justify-between'>
-          <Card />
-          <Card />
-          <Card />
-          <Card />
+        {DB.map((shoe) => (
+          <Card 
+          title= {shoe.title}
+          price= {shoe.price}
+          imageURL = {shoe.imageURL}
+          onClickAdd = {()=>{console.log('clicked add')}}
+          onClickFavorite = {()=>{console.log('clicked favorite')}}
+          />
+        ))}
+
+
         </div>
       </section>
     </div>
