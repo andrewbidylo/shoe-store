@@ -1,0 +1,53 @@
+
+.drawer{
+  position: absolute;
+  width: 440px;
+  height: 100%;
+  right:0;
+  background: #FFFFFF;
+  box-shadow: -10 4px 24px #999999;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  .items{
+    flex:0.9;
+    overflow:auto;
+    margin-bottom: 40px;
+  }
+  .cartItem{
+    margin-bottom: 10px;
+    padding: 10px 0 10px 0;
+    border: 1px solid #f3f3f3;
+    border-radius:20px;
+    overflow: hidden;
+    .cart-discription{
+      margin:0 0 10px 0;
+    }
+    p{
+      font-size: 16px;
+    }
+    b{
+     
+      font-size: 14px;
+    }
+    .sneakers-pic{
+      margin-left: 15px;
+      width: 70px;
+      height: 70px;
+    }
+  }
+  h2{
+    margin: 0;
+  }
+  .remove-btn{
+    margin-right: 15px;
+    opacity: 0.5;
+    cursor: pointer;
+    transition: opacity 0.15s ease-in-out;
+    
+    &:hover{
+      opacity: 1;
+    }
+  }
+  
+}

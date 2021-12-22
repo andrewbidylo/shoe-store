@@ -1,202 +1,84 @@
 * {
-  font-family: 'Inter', '-apple-system';
-
+  font-family: "Inter", "-apple-system";
 }
 body {
   margin: 0;
-  font-family: 'Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: "Inter", "-apple-system", "BlinkMacSystemFont", "Segoe UI",
+    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+    "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #e7f6ff;
-
-
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
 .wrapper {
-background: #ffffff;
-box-shadow: 0 10px 20px #999999;
-border-radius: 20px;
-max-width: 1080px;
-margin: 50px auto;
+  background: #ffffff;
+  box-shadow: 0 10px 20px #999999;
+  border-radius: 20px;
+  max-width: 1080px;
+  margin: 50px auto;
 }
-header  {
-border-bottom: 1px solid #EAEAEA;
-  img{
-    margin-right: 15px;
-  }
-  .logo{
-    margin-right: 15px;
-    width: 50px;
-    height: 50px;
-  }
-  h3, p {
-    margin: 0;
-  }
-}
+
 .content {
-  .card {
-    .sneakers-pic{
-      width: 190px;
-      height: 190px;
-    }
-  }
-  h5 {
-    font-weight: 400;
-    font-size: 14px;
-  }
-  .card {
-    border: 1px solid #eeeeee;
-    padding: 20px;
-    width: 230px;
-    border-radius: 40px;
-    transition: box-shadow 0.18s ease-in-out,
-    transform 0.18s ease-in-out;
-    &:hover{
-      box-shadow: 0 10px 10px #7a7a7a;
-      transform: translateY(-5px);
-      cursor: pointer;
-    }
-  .faforite {
-    position: absolute;
-    cursor: pointer;
-  }
-    span{
-      font-size: 14px;
-      opacity: 0.5;
-      text-transform: uppercase;
-    }
-  }
-
-
-
-  .button {
-    background: #ffffff;
-    border: 1px solid #f2f2f2;
-    box-sizing: border-box;
-    border-radius:8px;
-    height: 32px;
-    width: 32px;
-   padding: 9px
-  }
-
-  .search-block{
+  .search-block {
     border: 1px solid #f3f3f3;
     padding: 0 15px;
   }
-  input{
+  input {
     border: 0;
-    padding:13px;
+    padding: 13px;
     font-family: 16px;
     width: 180px;
   }
 }
-.overlay{
+.overlay {
   position: absolute;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-  background-color:rgba(0,0,0,0.5);
+  background-color: rgba(0, 0, 0, 0.5);
   z-index: 1;
 }
 
-.drawer{
-  position: absolute;
-  width: 440px;
-  height: 100%;
-  right:0;
-  background: #FFFFFF;
-  box-shadow: -10 4px 24px #999999;
-  padding: 30px;
-  display: flex;
-  flex-direction: column;
-  .items{
-    flex:0.9;
-    overflow:auto;
-    margin-bottom: 40px;
-  }
-  .cartItem{
-    margin-bottom: 10px;
-    padding: 10px 0 10px 0;
-    border: 1px solid #f3f3f3;
-    border-radius:20px;
-    overflow: hidden;
-    .cart-discription{
-      margin:0 0 10px 0;
-    }
-    p{
-      font-size: 16px;
-    }
-    b{
-     
-      font-size: 14px;
-    }
-    .sneakers-pic{
-      margin-left: 15px;
-      width: 70px;
-      height: 70px;
-    }
-  }
-  h2{
-    margin: 0;
-  }
-  .remove-btn{
-    margin-right: 15px;
-    opacity: 0.5;
-    cursor: pointer;
-    transition: opacity 0.15s ease-in-out;
-    
-    &:hover{
-      opacity: 1;
-    }
-  }
-  
-}
-
-.cartTotalBlock{
-  ul{
-
+.cartTotalBlock {
+  ul {
     li {
       display: flex;
       align-items: flex-end;
       margin-bottom: 20px;
     }
-    div{
-      flex:1;
+    div {
+      flex: 1;
       height: 1px;
       border-bottom: 1px dashed #dfdfdf;
       position: relative;
-      top: -4px
-      margin 0 7px;
+      top: -4px margin 0 7px;
     }
   }
-  .greenButton{
+  .greenButton {
     position: relative;
- &:hover{
-   img{
-     transform: translateX(5px)
-   }
- }
-    img{
+    &:hover {
+      img {
+        transform: translateX(5px);
+      }
+    }
+    img {
       position: absolute;
       right: 30px;
-      top:20px;
-      transition: transform 0.2s ease-in-out
-
+      top: 20px;
+      transition: transform 0.2s ease-in-out;
     }
   }
-   
 }
 
-.greenButton{
-  width:100%;
+.greenButton {
+  width: 100%;
   height: 55px;
   background: #9dd558;
   border-radius: 18px;
@@ -206,10 +88,10 @@ border-bottom: 1px solid #EAEAEA;
   font-weight: 500;
   cursor: pointer;
   transition: background 0.1s ease-in-out;
-  &:hover{
+  &:hover {
     background: lighten($color: #9dd558, $amount: 5%);
   }
-  &:active{
+  &:active {
     background: darken($color: #9dd558, $amount: 10%);
   }
 }
