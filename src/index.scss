@@ -1,5 +1,6 @@
 * {
   font-family: 'Inter', '-apple-system';
+
 }
 body {
   margin: 0;
@@ -9,6 +10,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #e7f6ff;
+
+
 }
 
 code {
@@ -115,7 +118,7 @@ border-bottom: 1px solid #EAEAEA;
   display: flex;
   flex-direction: column;
   .items{
-    flex:1;
+    flex:0.9;
     overflow:auto;
     margin-bottom: 40px;
   }
