@@ -15,12 +15,14 @@
     margin-bottom: 40px;
   }
   .cartItem{
+    display: flex;
+    align-items: center;
     margin-bottom: 10px;
     padding: 10px 0 10px 0;
     border: 1px solid #f3f3f3;
     border-radius:20px;
     overflow: hidden;
-    .cart-discription{
+    .cartDiscription{
       margin:0 0 10px 0;
     }
     p{
@@ -30,7 +32,7 @@
      
       font-size: 14px;
     }
-    .sneakers-pic{
+    .sneakersPic{
       margin-left: 15px;
       width: 70px;
       height: 70px;

@@ -1,33 +1,33 @@
 import styles from './Drawer.module.scss'
 
-function Drawer () {
+function Drawer (props) {
   return (
-    <div style={{ display: 'none' }} className='overlay'>
+    <div className='overlay'>
       <div className={styles.drawer}>
         <h2 className='mb-30 d-flex justify-between'>Cart
-          <img className='remove-btn cu-p' src='/img/btn-remove.svg' alt='remove' />
+          <img className='remove-btn cu-p' src='/img/btn-remove.svg' alt='remove' onClick={props.onCloseDrawer}/>
         </h2>
         <div className={styles.items}>
-          <div className='cartItem d-flex align-center '>
-            <img src='/img/sneakers/1.png' alt='plus' className='sneakers-pic' />
+          <div className={styles.cartItem}>
+            <img src='/img/sneakers/1.png' alt='plus' className={styles.sneakersPic} />
             <div className='m-10'>
-              <p className='cart-discription'>Mens shoes New model 2022</p>
+              <p className='cartDiscription'>Mens shoes New model 2022</p>
               <b> $100</b>
             </div>
             <img className='remove-btn' src='/img/btn-remove.svg' alt='remove' />
           </div>
-          <div className='cartItem d-flex align-center '>
-            <img src='/img/sneakers/1.png' alt='plus' className='sneakers-pic' />
+          <div className={styles.cartItem}>
+            <img src='/img/sneakers/1.png' alt='plus' className={styles.sneakersPic} />
             <div className='m-10'>
-              <p className='cart-discription'>Mens shoes New model 2022</p>
+              <p className='cartDiscription'>Mens shoes New model 2022</p>
               <b> $100</b>
             </div>
             <img className='remove-btn' src='/img/btn-remove.svg' alt='remove' />
           </div>
-          <div className='cartItem d-flex align-center '>
-            <img src='/img/sneakers/1.png' alt='plus' className='sneakers-pic' />
+          <div className={styles.cartItem}>
+            <img src='/img/sneakers/1.png' alt='plus' className={styles.sneakersPic} />
             <div className='m-10'>
-              <p className='cart-discription'>Mens shoes New model 2022</p>
+              <p className='cartDiscription'>Mens shoes New model 2022</p>
               <b> $100</b>
             </div>
             <img className='remove-btn' src='/img/btn-remove.svg' alt='remove' />

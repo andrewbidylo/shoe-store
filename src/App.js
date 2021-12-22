@@ -1,6 +1,7 @@
 import Card from './components/Card'
 import Header from './components/Header'
 import Drawer from './components/Drawer'
+import React from 'react'
 
 const DB = [
   {title: 'Mens shoes', price: 454, imageURL: './img/sneakers/1.png'},
@@ -11,10 +12,13 @@ const DB = [
 
 
 function App() {
+
+  const [cartOpened, setCartOpened] = React.useState(false)
+
   return (
     <div className="wrapper clear">
-      <Drawer />
-      <Header />
+      {cartOpened ? <Drawer onCloseDrawer={()=>{setCartOpened(false)}}/> : null}
+      <Header onClickCart={()=>{setCartOpened(true)}}/>
       <section className='content p-40'>
         <div className='d-flex align-center justify-between mb-40'>
           <h1>All Sneakers</h1>
