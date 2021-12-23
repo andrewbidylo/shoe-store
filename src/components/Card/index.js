@@ -12,7 +12,7 @@ function Card({ title, price, imageURL, onClickFavorite, onClickAdd }) {
     onClickAdd({ title, price, imageURL})
     setIsAdded(!isAdded)
   }
-
+  
   return (
     <div className={styles.card} >
       <div className={styles.favorite}>

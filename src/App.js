@@ -7,6 +7,7 @@ import axios from 'axios';
 
 
 function App() {
+  
   const [items, setItems] = React.useState([])
   const [cartOpened, setCartOpened] = React.useState(false)
   const [itemsForCard, setCartItem] = React.useState([])
@@ -35,12 +36,8 @@ function App() {
   // Remove item from the Card. From the DB and DOM.
   const onRemoveItem = (id) => {
     axios.delete(`https://61c3afad9cfb8f0017a3ec85.mockapi.io/cart/${id}`)
-      .then((res) => {
         setCartItem(prev => prev.filter(item => item.id !== id));
-      })
-      .catch((err) => {
-        console.log(err);
-      })
+
   }
 
   // Add selected item to the DB and to the local state.
@@ -49,7 +46,7 @@ function App() {
     setCartItem(prev => [...prev, obj])
   }
 
-  
+
   return (
     <div className="wrapper clear">
       {cartOpened ? <Drawer onRemoveItem={onRemoveItem} itemsForCard={itemsForCard} onCloseDrawer={() => { setCartOpened(false) }} /> : null}
