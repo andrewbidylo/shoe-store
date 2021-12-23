@@ -6,6 +6,8 @@ function Card({ title, price, imageURL, onClickFavorite, onClickAdd }) {
 
   const [isAdded, setIsAdded] = React.useState(false)
 
+  // Pass {title, price, imageURL} from the selected item to the Card. 
+  // Change the Cart's status.  
   const onClickPlus = () => {
     onClickAdd({ title, price, imageURL})
     setIsAdded(!isAdded)
