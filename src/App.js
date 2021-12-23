@@ -10,6 +10,7 @@ function App() {
   const [items, setItems] = React.useState([])
   const [cartOpened, setCartOpened] = React.useState(false)
   const [itemsForCard, setCartItem] = React.useState([])
+  const [searchValue, serSearchValue] = React.useState('')
 
 
 React.useEffect(()=>{
@@ -23,7 +24,7 @@ React.useEffect(()=>{
 },[])
 
 const onAddtoCart = (obj)=>{
-  setCartItem([...itemsForCard, obj ])
+  setCartItem(prev =>[...prev, obj])
 }
 console.log(itemsForCard)
   return (
@@ -32,17 +33,24 @@ console.log(itemsForCard)
       <Header onClickCart={()=>{setCartOpened(true)}}/>
       <section className='content p-40'>
         <div className='d-flex align-center justify-between mb-40'>
-          <h1>All Sneakers</h1>
+          <h1>{searchValue ? `Search: ${searchValue}` : 'All Shoes'}</h1>
           <div className='search-block d-flex'>
             <img src='/img/search.svg' alt='Search' />
-            <input placeholder='Search'></input>
+            {searchValue ? <img onClick={()=> serSearchValue('') } className='clear remove-btn cu-p' src='/img/btn-remove.svg' alt='Clear'/> : null}
+            <input onChange={(event)=>serSearchValue(event.target.value)} value = {searchValue} placeholder='Search'></input>
           </div>
         </div>
         <div className='allSneackers d-flex justify-between flex-wrap '>
-        {items.map((shoe) => (
-          <Card 
-          title= {shoe.title}
-          price= {shoe.price}
+        {items
+        .filter((item) => item.title
+        .toLowerCase()
+        .includes(searchValue
+        .toLowerCase()))
+        .map((shoe, index) => (
+          <Card
+          key = {index}
+          title = {shoe.title}
+          price = {shoe.price}
           imageURL = {shoe.imageURL}
           onClickAdd = {obj=>{onAddtoCart(obj)}}
           onClickFavorite = {()=>{console.log('clicked favorite')}}
