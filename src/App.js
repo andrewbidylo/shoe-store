@@ -2,22 +2,33 @@ import Card from './components/Card'
 import Header from './components/Header'
 import Drawer from './components/Drawer'
 import React from 'react'
+import axios from 'axios';
 
-const DB = [
-  {title: 'Mens shoes', price: 454, imageURL: './img/sneakers/1.png'},
-  {title: 'Mens shoes2', price: 424, imageURL: './img/sneakers/1.png'},
-  {title: 'Mens shoes3', price: 124, imageURL: './img/sneakers/1.png'},
-  {title: 'Mens shoes4', price: 554, imageURL: './img/sneakers/1.png'},
-]
 
 
 function App() {
-
+  const [items, setItems] = React.useState([])
   const [cartOpened, setCartOpened] = React.useState(false)
+  const [itemsForCard, setCartItem] = React.useState([])
 
+
+React.useEffect(()=>{
+  axios.get('https://61c3afad9cfb8f0017a3ec85.mockapi.io/items')
+  .then((res) => {
+    setItems(res.data);
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+},[])
+
+const onAddtoCart = (obj)=>{
+  setCartItem([...itemsForCard, obj ])
+}
+console.log(itemsForCard)
   return (
     <div className="wrapper clear">
-      {cartOpened ? <Drawer onCloseDrawer={()=>{setCartOpened(false)}}/> : null}
+      {cartOpened ? <Drawer itemsForCard={itemsForCard} onCloseDrawer={()=>{setCartOpened(false)}}/> : null}
       <Header onClickCart={()=>{setCartOpened(true)}}/>
       <section className='content p-40'>
         <div className='d-flex align-center justify-between mb-40'>
@@ -27,13 +38,13 @@ function App() {
             <input placeholder='Search'></input>
           </div>
         </div>
-        <div className='allSneackers d-flex justify-between'>
-        {DB.map((shoe) => (
+        <div className='allSneackers d-flex justify-between flex-wrap '>
+        {items.map((shoe) => (
           <Card 
           title= {shoe.title}
           price= {shoe.price}
           imageURL = {shoe.imageURL}
-          onClickAdd = {()=>{console.log('clicked add')}}
+          onClickAdd = {obj=>{onAddtoCart(obj)}}
           onClickFavorite = {()=>{console.log('clicked favorite')}}
           />
         ))}
