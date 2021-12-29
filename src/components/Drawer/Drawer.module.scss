@@ -8,7 +8,7 @@
   padding: 30px;
   display: flex;
   flex-direction: column;
-
+ 
  
   .items {
     flex: 1;
@@ -19,14 +19,14 @@
 
  
   .cartItem {
-
+    overflow: hidden;
     display: flex;
     align-items: center;
     margin-bottom: 10px;
     padding: 10px 0 10px 0;
     border: 1px solid #f3f3f3;
     border-radius: 20px;
-    overflow: hidden;
+   
     .cartDiscription {
       margin: 0 0 10px 0;
     }

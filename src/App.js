@@ -1,20 +1,24 @@
-import Card from './components/Card'
-import Header from './components/Header'
-import Drawer from './components/Drawer'
-import React from 'react'
-import axios from 'axios';
 
+import Header from './components/Header';
+import Drawer from './components/Drawer';
+import React from 'react';
+import axios from 'axios';
+import { Route, Routes } from "react-router-dom";
+import Home from './pages/Home'
+import Favorites from './pages/Favorites';
 
 
 function App() {
-  
+
   const [items, setItems] = React.useState([])
   const [cartOpened, setCartOpened] = React.useState(false)
   const [itemsForCard, setCartItem] = React.useState([])
-  const [searchValue, serSearchValue] = React.useState('')
+  const [searchValue, setSearchValue] = React.useState('')
+  const [favorites, setFavorites] = React.useState([])
 
-// Get items from server (first render) and hendeling errors.
-// Set get data to state.
+
+  // Get items from server (first render) and hendeling errors.
+  // Set get data to state.
 
   React.useEffect(() => {
     axios.get('https://61c3afad9cfb8f0017a3ec85.mockapi.io/items')
@@ -24,9 +28,16 @@ function App() {
       .catch((err) => {
         console.log(err);
       })
-      axios.get('https://61c3afad9cfb8f0017a3ec85.mockapi.io/cart')
+    axios.get('https://61c3afad9cfb8f0017a3ec85.mockapi.io/cart')
       .then((res) => {
         setCartItem(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+    axios.get('https://61c3afad9cfb8f0017a3ec85.mockapi.io/favoriteItems')
+      .then((res) => {
+        setFavorites(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -35,9 +46,9 @@ function App() {
 
   // Remove item from the Card. From the DB and DOM.
   const onRemoveItem = (id) => {
+    console.log(itemsForCard)
     axios.delete(`https://61c3afad9cfb8f0017a3ec85.mockapi.io/cart/${id}`)
-        setCartItem(prev => prev.filter(item => item.id !== id));
-
+    setCartItem(prev => prev.filter(item => item.id !== id))
   }
 
   // Add selected item to the DB and to the local state.
@@ -46,40 +57,40 @@ function App() {
     setCartItem(prev => [...prev, obj])
   }
 
+  const onAddToFavorite = async (obj) => {
+    try {
+      if (favorites.find((item => item.id === obj.id))){
+        axios.delete(`https://61c3afad9cfb8f0017a3ec85.mockapi.io/favoriteItems/${obj.id}`)
+        setFavorites(prev =>prev.filter(item => item.id !== obj.id))
+      } else {
+       const {data} = await axios.post('https://61c3afad9cfb8f0017a3ec85.mockapi.io/favoriteItems', obj)
+        setFavorites(prev => [...prev, data])
+       
+      }
+    } catch(error){
+      alert('Some error!')
+    }
+
+
+   
+  }
 
   return (
     <div className="wrapper clear">
       {cartOpened ? <Drawer onRemoveItem={onRemoveItem} itemsForCard={itemsForCard} onCloseDrawer={() => { setCartOpened(false) }} /> : null}
       <Header onClickCart={() => { setCartOpened(true) }} />
-      <section className='content p-40'>
-        <div className='d-flex align-center justify-between mb-40'>
-          <h1>{searchValue ? `Search: ${searchValue}` : 'All Shoes'}</h1>
-          <div className='search-block d-flex'>
-            <img src='/img/search.svg' alt='Search' />
-            {searchValue ? <img onClick={() => serSearchValue('')} className='clear remove-btn cu-p' src='/img/btn-remove.svg' alt='Clear' /> : null}
-            <input onChange={(event) => serSearchValue(event.target.value)} value={searchValue} placeholder='Search'></input>
-          </div>
-        </div>
-        <div className='allSneackers d-flex justify-between flex-wrap '>
-          {items
-            .filter((item) => item.title
-              .toLowerCase()
-              .includes(searchValue
-                .toLowerCase()))
-            .map((shoe, index) => (
-              <Card
-                key={index}
-                title={shoe.title}
-                price={shoe.price}
-                imageURL={shoe.imageURL}
-                onClickAdd={obj => { onAddtoCart(obj) }}
-                onClickFavorite={() => { console.log('clicked favorite') }}
-              />
-            ))}
+      <Routes>
+        <Route path="/" exact element={
+          <Home
+            searchValue={searchValue}
+            setSearchValue={setSearchValue}
+            items={items} onAddtoCart={onAddtoCart}
+            onAddToFavorite={onAddToFavorite}
+          />}
+        />
+        <Route path="/favorites" exact element={<Favorites items={favorites} onAddToFavorite={onAddToFavorite}/>} />
 
-
-        </div>
-      </section>
+      </Routes>
     </div>
   );
 }

@@ -2,9 +2,10 @@ import styles from './Card.module.scss'
 import React from 'react'
 
 
-function Card({ title, price, imageURL, onClickFavorite, onClickAdd }) {
+function Card({ id, title, price, imageURL, onClickAdd, onClickFavorite, favorited = false}) {
 
   const [isAdded, setIsAdded] = React.useState(false)
+  const [isFavorite, setIsFavorite] = React.useState(favorited)
 
   // Pass {title, price, imageURL} from the selected item to the Card. 
   // Change the Cart's status.  
@@ -12,11 +13,17 @@ function Card({ title, price, imageURL, onClickFavorite, onClickAdd }) {
     onClickAdd({ title, price, imageURL})
     setIsAdded(!isAdded)
   }
-  
+
+  const onClickFavoriteButton = () => {
+    onClickFavorite({ id, title, price, imageURL})
+    setIsFavorite(!isFavorite)
+  }
+
+
   return (
     <div className={styles.card} >
       <div className={styles.favorite}>
-        <img src='/img/unliked.svg' alt='unliked' onClick={onClickFavorite} />
+        <img src={isFavorite ? "./img/liked.svg" : '/img/unliked.svg'}  alt='unliked' onClick={onClickFavoriteButton} />
       </div>
       <img src={imageURL} alt='plus' className={styles.sneakersPic}></img>
       <h5>{title}</h5>
