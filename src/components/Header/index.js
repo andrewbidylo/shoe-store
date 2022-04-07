@@ -7,8 +7,8 @@ function Header (props){
       <div className="d-flex align-center">
         <img className={styles.logo} src='img/logo.png' alt='logo-sneakers' />
         <div className={styles.headerInfo}>
-          <h3 className='text-uppercase'>React Sneakers</h3>
-          <p className='opacity-5'>Sneakers store</p>
+          <h3 className='text-uppercase'>Runner</h3>
+          <p className='opacity-5'>Shoe store</p>
         </div> 
       </div>
       </Link>
