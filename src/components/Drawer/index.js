@@ -1,6 +1,7 @@
 import styles from './Drawer.module.scss'
 
 function Drawer({ itemsForCard = [], onCloseDrawer, onRemoveItem }) {
+console.log(itemsForCard)
   return (
     <div className='overlay'>
       <div className={styles.drawer}>
@@ -12,9 +13,9 @@ function Drawer({ itemsForCard = [], onCloseDrawer, onRemoveItem }) {
           <div className='d-flex flex-column flex"'>
             <div className={styles.items}>
 
-              {itemsForCard.map((item) => ( 
-                
-                <div key={item.key} className={styles.cartItem}>
+              {itemsForCard.map(item => ( 
+              
+                <div key={item.id} className={styles.cartItem}>
                   <img src={item.imageURL} alt='plus' className={styles.sneakersPic} />
 
                   <div className='ml-20 mr-20 flex'>

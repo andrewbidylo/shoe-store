@@ -3,6 +3,7 @@ import Card from '../components/Card';
 
 
 function Home({searchValue, setSearchValue, items, onAddtoCart, onAddToFavorite }) {
+  console.log("items",items)
   return (
 
     <section className='content p-40'>
@@ -22,13 +23,13 @@ function Home({searchValue, setSearchValue, items, onAddtoCart, onAddToFavorite 
               .toLowerCase()))
           .map((shoe, index) => (
             <Card
-              id = {shoe.id}
+              id={shoe.id}
               key={index}
               title={shoe.title}
               price={shoe.price}
               imageURL={shoe.imageURL}
-              onClickAdd={obj => { onAddtoCart(obj) }}
-              onClickFavorite={obj => { onAddToFavorite(obj) }}
+              onClickAdd={shoe => { onAddtoCart(shoe) }}
+              onClickFavorite={shoe => { onAddToFavorite(shoe) }}
             />
           ))}
 

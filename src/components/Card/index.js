@@ -10,7 +10,7 @@ function Card({ id, title, price, imageURL, onClickAdd, onClickFavorite, favorit
   // Pass {title, price, imageURL} from the selected item to the Card. 
   // Change the Cart's status.  
   const onClickPlus = () => {
-    onClickAdd({ title, price, imageURL})
+    onClickAdd({ id, title, price, imageURL})
     setIsAdded(!isAdded)
   }
 

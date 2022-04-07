@@ -46,35 +46,47 @@ function App() {
 
   // Remove item from the Card. From the DB and DOM.
   const onRemoveItem = (id) => {
-    console.log(itemsForCard)
+    console.log("itemsForCard", itemsForCard)
     axios.delete(`https://61c3afad9cfb8f0017a3ec85.mockapi.io/cart/${id}`)
     setCartItem(prev => prev.filter(item => item.id !== id))
   }
 
   // Add selected item to the DB and to the local state.
   const onAddtoCart = (obj) => {
-    axios.post('https://61c3afad9cfb8f0017a3ec85.mockapi.io/cart', obj)
-    setCartItem(prev => [...prev, obj])
+    try {
+      if (itemsForCard.find((item => Number(item.id) === Number(obj.id)))) {
+        axios.delete(`https://61c3afad9cfb8f0017a3ec85.mockapi.io/cart/${obj.id}`)
+        setCartItem(prev => prev.filter(item => Number(item.id) !== Number(obj.id)))
+      } else {
+        console.log(obj)
+        axios.post('https://61c3afad9cfb8f0017a3ec85.mockapi.io/cart', obj)
+        setCartItem(prev => [...prev, obj])
+      }
+    } catch (error) {
+      alert('Some error!')
+
+    }
+
   }
 
   const onAddToFavorite = async (obj) => {
     try {
-      if (favorites.find((item => item.id === obj.id))){
+      if (favorites.find((item => item.id === obj.id))) {
         axios.delete(`https://61c3afad9cfb8f0017a3ec85.mockapi.io/favoriteItems/${obj.id}`)
-        setFavorites(prev =>prev.filter(item => item.id !== obj.id))
+        setFavorites(prev => prev.filter(item => item.id !== obj.id))
       } else {
-       const {data} = await axios.post('https://61c3afad9cfb8f0017a3ec85.mockapi.io/favoriteItems', obj)
+        const { data } = await axios.post('https://61c3afad9cfb8f0017a3ec85.mockapi.io/favoriteItems', obj)
         setFavorites(prev => [...prev, data])
-       
+
       }
-    } catch(error){
+    } catch (error) {
       alert('Some error!')
     }
 
 
-   
-  }
 
+  }
+  console.log("items", items)
   return (
     <div className="wrapper clear">
       {cartOpened ? <Drawer onRemoveItem={onRemoveItem} itemsForCard={itemsForCard} onCloseDrawer={() => { setCartOpened(false) }} /> : null}
@@ -88,7 +100,7 @@ function App() {
             onAddToFavorite={onAddToFavorite}
           />}
         />
-        <Route path="/favorites" exact element={<Favorites items={favorites} onAddToFavorite={onAddToFavorite}/>} />
+        <Route path="/favorites" exact element={<Favorites items={favorites} onAddToFavorite={onAddToFavorite} />} />
 
       </Routes>
     </div>

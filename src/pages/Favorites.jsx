@@ -11,7 +11,7 @@ function Favorites({items, onAddToFavorite}) {
       <div className='allSneackers d-flex justify-between flex-wrap '>
        {items.map((shoe, index) => (
             <Card
-             id = {shoe.id}
+             id={shoe.id}
               key={index}
               title={shoe.title}
               price={shoe.price}
