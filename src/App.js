@@ -1,7 +1,7 @@
 
 import Header from './components/Header';
 import Drawer from './components/Drawer';
-import React from 'react';
+import React, { useEffect } from 'react';
 import axios from 'axios';
 import { Route, Routes } from "react-router-dom";
 import Home from './pages/Home'
@@ -20,28 +20,18 @@ function App() {
   // Get items from server (first render) and hendeling errors.
   // Set get data to state.
 
-  React.useEffect(() => {
-    axios.get('https://61c3afad9cfb8f0017a3ec85.mockapi.io/items')
-      .then((res) => {
-        setItems(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-    axios.get('https://61c3afad9cfb8f0017a3ec85.mockapi.io/cart')
-      .then((res) => {
-        setCartItem(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-    axios.get('https://61c3afad9cfb8f0017a3ec85.mockapi.io/favoriteItems')
-      .then((res) => {
-        setFavorites(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
+  useEffect(() => {
+    async function fetchData() {
+      const cartResp = await axios.get('https://61c3afad9cfb8f0017a3ec85.mockapi.io/cart')
+      const favItemsResp = await axios.get('https://61c3afad9cfb8f0017a3ec85.mockapi.io/favoriteItems')
+      const itemsResp = await axios.get('https://61c3afad9cfb8f0017a3ec85.mockapi.io/items')
+      
+      setCartItem(cartResp.data)
+      setFavorites(favItemsResp.data)
+      setItems(itemsResp.data)
+    
+    } 
+      fetchData()
   }, [])
 
   // Remove item from the Card. From the DB and DOM.
@@ -98,6 +88,7 @@ function App() {
             setSearchValue={setSearchValue}
             items={items} onAddtoCart={onAddtoCart}
             onAddToFavorite={onAddToFavorite}
+            itemsForCard={itemsForCard}
           />}
         />
         <Route path="/favorites" exact element={<Favorites items={favorites} onAddToFavorite={onAddToFavorite} />} />

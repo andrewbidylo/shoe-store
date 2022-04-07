@@ -2,7 +2,7 @@ import Card from '../components/Card';
 
 
 
-function Home({searchValue, setSearchValue, items, onAddtoCart, onAddToFavorite }) {
+function Home({searchValue, setSearchValue, items, onAddtoCart, onAddToFavorite, itemsForCard}) {
   console.log("items",items)
   return (
 
@@ -28,8 +28,10 @@ function Home({searchValue, setSearchValue, items, onAddtoCart, onAddToFavorite 
               title={shoe.title}
               price={shoe.price}
               imageURL={shoe.imageURL}
-              onClickAdd={shoe => { onAddtoCart(shoe) }}
-              onClickFavorite={shoe => { onAddToFavorite(shoe) }}
+              onClickAdd={obj => { onAddtoCart(obj) }}
+              onClickFavorite={obj => { onAddToFavorite(obj) }}
+              added={itemsForCard.some(obj => Number(obj.id) === Number(shoe.id))}
+              
             />
           ))}
 
