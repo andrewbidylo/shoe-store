@@ -2,8 +2,21 @@ import Card from '../components/Card';
 
 
 
-function Home({searchValue, setSearchValue, items, onAddtoCart, onAddToFavorite, itemsForCard}) {
-  console.log("items",items)
+const Home = ({ searchValue, setSearchValue, items, onAddtoCart, onAddToFavorite, itemsForCard, isLoading }) => {
+  const renderItems = () => {
+    const filteredItmes = items.filter((item) => item.title.toLowerCase().includes(searchValue.toLowerCase()))
+    console.log("isLoading", isLoading)
+    return (isLoading ? [...Array(10)] : filteredItmes).map((item, index) => (
+      <Card
+        key={index}
+        {...item}
+        onClickAdd={obj => { onAddtoCart(obj) }}
+        onClickFavorite={obj => { onAddToFavorite(obj) }}
+        added={itemsForCard.some(obj => Number(obj.id) === Number(item.id))}
+        loading={isLoading}
+      />
+    ))
+  };
   return (
 
     <section className='content p-40'>
@@ -16,30 +29,11 @@ function Home({searchValue, setSearchValue, items, onAddtoCart, onAddToFavorite,
         </div>
       </div>
       <div className='allSneackers d-flex justify-between flex-wrap '>
-        {items
-          .filter((item) => item.title
-            .toLowerCase()
-            .includes(searchValue
-              .toLowerCase()))
-          .map((shoe, index) => (
-            <Card
-              id={shoe.id}
-              key={index}
-              title={shoe.title}
-              price={shoe.price}
-              imageURL={shoe.imageURL}
-              onClickAdd={obj => { onAddtoCart(obj) }}
-              onClickFavorite={obj => { onAddToFavorite(obj) }}
-              added={itemsForCard.some(obj => Number(obj.id) === Number(shoe.id))}
-              loading
-            />
-          ))}
-
-
+        {renderItems()}
       </div>
     </section>
-  )
 
+  )
 }
 
 

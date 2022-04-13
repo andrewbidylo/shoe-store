@@ -1,6 +1,6 @@
 import styles from './Drawer.module.scss'
 
-function Drawer({ itemsForCard = [], onCloseDrawer, onRemoveItem }) {
+const Drawer = ({ itemsForCard = [], onCloseDrawer, onRemoveItem }) => {
 console.log(itemsForCard)
   return (
     <div className='overlay'>

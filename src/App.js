@@ -1,34 +1,36 @@
 import Header from './components/Header';
 import Drawer from './components/Drawer';
-import React, { useEffect } from 'react';
+import React, { useEffect,useState } from 'react';
 import axios from 'axios';
 import { Route, Routes } from "react-router-dom";
 import Home from './pages/Home'
 import Favorites from './pages/Favorites';
 
 
-function App() {
+const App = () => {
 
-  const [items, setItems] = React.useState([])
-  const [cartOpened, setCartOpened] = React.useState(false)
-  const [itemsForCard, setCartItem] = React.useState([])
-  const [searchValue, setSearchValue] = React.useState('')
-  const [favorites, setFavorites] = React.useState([])
-
+  const [items, setItems] = useState([])
+  const [cartOpened, setCartOpened] = useState(false)
+  const [itemsForCard, setCartItem] = useState([])
+  const [searchValue, setSearchValue] = useState('')
+  const [favorites, setFavorites] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
 
   // Get items from server (first render) and hendeling errors.
   // Set get data to state.
 
   useEffect(() => {
     async function fetchData() {
+      setIsLoading(true)
       const cartResp = await axios.get('https://61c3afad9cfb8f0017a3ec85.mockapi.io/cart')
       const favItemsResp = await axios.get('https://61c3afad9cfb8f0017a3ec85.mockapi.io/favoriteItems')
       const itemsResp = await axios.get('https://61c3afad9cfb8f0017a3ec85.mockapi.io/items')
+      setIsLoading(false)
       
       setCartItem(cartResp.data)
       setFavorites(favItemsResp.data)
       setItems(itemsResp.data)
-    
+     
     } 
       fetchData()
   }, [])
@@ -88,6 +90,7 @@ function App() {
             items={items} onAddtoCart={onAddtoCart}
             onAddToFavorite={onAddToFavorite}
             itemsForCard={itemsForCard}
+            isLoading = {isLoading}
           />}
         />
         <Route path="/favorites" exact element={<Favorites items={favorites} onAddToFavorite={onAddToFavorite} />} />

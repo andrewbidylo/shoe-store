@@ -2,7 +2,7 @@ import styles from './Card.module.scss'
 import React, { useState } from 'react'
 import ContentLoader from 'react-content-loader';
 // import AppContext from '../../context';
-function Card({
+const Card = ({
   id,
   title,
   price,
@@ -11,8 +11,8 @@ function Card({
   onClickFavorite,
   favorited = false,
   added = false,
-  loading = false
-}) {
+  loading
+}) => {
 
   const [isAdded, setIsAdded] = useState(added)
   const [isFavorite, setIsFavorite] = useState(favorited)
@@ -29,7 +29,7 @@ function Card({
     setIsFavorite(!isFavorite)
   }
 
-
+console.log("isLoading",loading)
   return (
     <div className={styles.card}>
       {loading ? (

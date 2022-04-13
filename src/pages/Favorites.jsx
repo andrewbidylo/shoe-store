@@ -1,7 +1,7 @@
 import Card from '../components/Card';
 
 
-function Favorites({items, onAddToFavorite}) {
+const Favorites = ({items, onAddToFavorite}) => {
   return (
 
     <section className='content p-40'>
