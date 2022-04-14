@@ -1,7 +1,7 @@
 import styles from './Drawer.module.scss'
-
+import Info from "../Info"
 const Drawer = ({ itemsForCard = [], onCloseDrawer, onRemoveItem }) => {
-console.log(itemsForCard)
+
   return (
     <div className='overlay'>
       <div className={styles.drawer}>
@@ -56,14 +56,7 @@ console.log(itemsForCard)
 
         ) : (
 
-          <div className={styles.cartEmpty}>
-            <img className='mb-20' src="/img/empty-cart.jpg" alt='Empty cart' />
-            <p className='opacity-6'>Card is empty</p>
-            <button onClick={onCloseDrawer} className={styles.greenButton}>
-              <img src='/img/arrow.svg' alt='Arrow' />
-              Back
-            </button>
-          </div>
+          <Info title="Cart is empty" description="" image={"/img/empty-cart.jpg"} />
 
         )}
       </div>
