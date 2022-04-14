@@ -1,11 +1,11 @@
 import Header from './components/Header';
 import Drawer from './components/Drawer';
-import React, { useEffect,useState } from 'react';
+import React, { useEffect,useState, createContext } from 'react';
 import axios from 'axios';
 import { Route, Routes } from "react-router-dom";
 import Home from './pages/Home'
 import Favorites from './pages/Favorites';
-
+import { AppContext } from './context';
 
 const App = () => {
 
@@ -79,6 +79,9 @@ const App = () => {
   }
   console.log("items", items)
   return (
+    <AppContext.Provider value={{items, itemsForCard, favorites}}>
+
+  
     <div className="wrapper clear">
       {cartOpened ? <Drawer onRemoveItem={onRemoveItem} itemsForCard={itemsForCard} onCloseDrawer={() => { setCartOpened(false) }} /> : null}
       <Header onClickCart={() => { setCartOpened(true) }} />
@@ -93,10 +96,11 @@ const App = () => {
             isLoading = {isLoading}
           />}
         />
-        <Route path="/favorites" exact element={<Favorites items={favorites} onAddToFavorite={onAddToFavorite} />} />
+        <Route path="/favorites" exact element={<Favorites onAddToFavorite={onAddToFavorite} />} />
 
       </Routes>
     </div>
+    </AppContext.Provider>
   );
 }
 
