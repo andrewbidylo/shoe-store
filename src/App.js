@@ -1,6 +1,6 @@
 import Header from './components/Header';
 import Drawer from './components/Drawer';
-import React, { useEffect,useState, createContext } from 'react';
+import React, { useEffect,useState } from 'react';
 import axios from 'axios';
 import { Route, Routes } from "react-router-dom";
 import Home from './pages/Home'
@@ -37,7 +37,6 @@ const App = () => {
 
   // Remove item from the Card. From the DB and DOM.
   const onRemoveItem = (id) => {
-    console.log("itemsForCard", itemsForCard)
     axios.delete(`https://61c3afad9cfb8f0017a3ec85.mockapi.io/cart/${id}`)
     setCartItem(prev => prev.filter(item => item.id !== id))
   }
@@ -49,7 +48,6 @@ const App = () => {
         axios.delete(`https://61c3afad9cfb8f0017a3ec85.mockapi.io/cart/${obj.id}`)
         setCartItem(prev => prev.filter(item => Number(item.id) !== Number(obj.id)))
       } else {
-        console.log(obj)
         axios.post('https://61c3afad9cfb8f0017a3ec85.mockapi.io/cart', obj)
         setCartItem(prev => [...prev, obj])
       }
@@ -73,17 +71,12 @@ const App = () => {
     } catch (error) {
       alert('Some error!')
     }
-
-
-
   }
 const isItemAdded = (id) => {
   return itemsForCard.some(obj => Number(obj.id) === Number(id))
 }
   return (
     <AppContext.Provider value={{items, itemsForCard, favorites, isItemAdded}}>
-
-  
     <div className="wrapper clear">
       {cartOpened ? <Drawer onRemoveItem={onRemoveItem} itemsForCard={itemsForCard} onCloseDrawer={() => { setCartOpened(false) }} /> : null}
       <Header onClickCart={() => { setCartOpened(true) }} />
@@ -93,12 +86,12 @@ const isItemAdded = (id) => {
             searchValue={searchValue}
             setSearchValue={setSearchValue}
             items={items} onAddtoCart={onAddtoCart}
-            onAddToFavorite={onAddToFavorite}
             itemsForCard={itemsForCard}
             isLoading = {isLoading}
+            onAddToFavorite={onAddToFavorite}
           />}
         />
-        <Route path="/favorites" exact element={<Favorites onAddToFavorite={onAddToFavorite} />} />
+        <Route path="/favorites" exact element={<Favorites/>} />
 
       </Routes>
     </div>

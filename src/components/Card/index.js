@@ -20,7 +20,6 @@ const Card = ({
   // Pass {title, price, imageURL} from the selected item to the Card. 
   // Change the Cart's status.  
 
-  console.log("isItemAdded", isItemAdded(id))
   const onClickPlus = () => {
     onClickAdd({ id, title, price, imageURL })
   }
@@ -30,7 +29,7 @@ const Card = ({
     setIsFavorite(!isFavorite)
   }
 
-console.log("isLoading",loading)
+
   return (
     <div className={styles.card}>
       {loading ? (

@@ -7,7 +7,7 @@ const Home = ({ searchValue, setSearchValue, items, onAddtoCart, onAddToFavorite
 
   const renderItems = () => {
     const filteredItmes = items.filter((item) => item.title.toLowerCase().includes(searchValue.toLowerCase()))
-    console.log("isLoading", isLoading)
+
     return (isLoading ? [...Array(10)] : filteredItmes).map((item, index) => (
       <Card
         key={index}
