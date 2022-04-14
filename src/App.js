@@ -77,9 +77,11 @@ const App = () => {
 
 
   }
-  console.log("items", items)
+const isItemAdded = (id) => {
+  return itemsForCard.some(obj => Number(obj.id) === Number(id))
+}
   return (
-    <AppContext.Provider value={{items, itemsForCard, favorites}}>
+    <AppContext.Provider value={{items, itemsForCard, favorites, isItemAdded}}>
 
   
     <div className="wrapper clear">

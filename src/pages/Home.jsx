@@ -2,7 +2,9 @@ import Card from '../components/Card';
 
 
 
-const Home = ({ searchValue, setSearchValue, items, onAddtoCart, onAddToFavorite, itemsForCard, isLoading }) => {
+
+const Home = ({ searchValue, setSearchValue, items, onAddtoCart, onAddToFavorite, isLoading }) => {
+
   const renderItems = () => {
     const filteredItmes = items.filter((item) => item.title.toLowerCase().includes(searchValue.toLowerCase()))
     console.log("isLoading", isLoading)
@@ -12,7 +14,6 @@ const Home = ({ searchValue, setSearchValue, items, onAddtoCart, onAddToFavorite
         {...item}
         onClickAdd={obj => { onAddtoCart(obj) }}
         onClickFavorite={obj => { onAddToFavorite(obj) }}
-        added={itemsForCard.some(obj => Number(obj.id) === Number(item.id))}
         loading={isLoading}
       />
     ))
