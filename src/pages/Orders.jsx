@@ -1,12 +1,23 @@
 import Card from '../components/Card'
-import {useState, useEffect} from 'react'
+import {useState, useEffect, useContext} from 'react'
 import axios from 'axios';
-
+import {AppContext} from '../context'
 const Orders = () => {
+  const {onAddtoCart, onAddToFavorite} = useContext(AppContext)
   const [orders, setOrders] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
+
+
   useEffect(()=>{
     (async ()=>{
-      const {data} = axios.get('https://61c3afad9cfb8f0017a3ec85.mockapi.io/orders')
+      try {
+        const {data} = await axios.get('https://61c3afad9cfb8f0017a3ec85.mockapi.io/orders')
+        setOrders(data.reduce((prev, obj) => [...prev, ...obj.items], []));
+        setIsLoading(false)
+      } catch (error) {
+        alert("Error")
+      }
+      
     })()
 
   },[])
@@ -17,8 +28,11 @@ const Orders = () => {
       <h1>My orders</h1>
       </div>
       <div className='allSneackers d-flex justify-between flex-wrap '>
-       {[].map((shoe, index) => (
+       {(isLoading ? [...Array(8)] : orders).map((item, index) => (
             <Card
+             key={index}
+              {...item}
+              loading={isLoading}
             />
           ))}
       </div>

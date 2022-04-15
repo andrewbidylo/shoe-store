@@ -78,8 +78,8 @@ const isItemAdded = (id) => {
   return itemsForCard.some(obj => Number(obj.id) === Number(id))
 }
   return (
-    <AppContext.Provider value={{items, itemsForCard, favorites, isItemAdded, setCartOpened, setCartItem}}>
-    <div className="wrapper clear">
+    <AppContext.Provider value={{items, itemsForCard,onAddtoCart, onAddToFavorite, favorites, isItemAdded, setCartOpened, setCartItem}}>
+    <div className="wrapper clear"> 
       {cartOpened ? <Drawer onRemoveItem={onRemoveItem} itemsForCard={itemsForCard} onCloseDrawer={() => { setCartOpened(false) }} /> : null}
       <Header onClickCart={() => { setCartOpened(true) }} />
       <Routes>

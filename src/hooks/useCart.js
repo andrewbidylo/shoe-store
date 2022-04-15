@@ -2,8 +2,8 @@ import {useContext} from 'react';
 import {AppContext} from '../context';
 
 export const useCart = () => {
-  const { itemsForCard, setCartItems } = useContext(AppContext);
+  const { itemsForCard, setCartItem } = useContext(AppContext);
   const totalPrice = itemsForCard.reduce((sum, obj) => obj.price + sum, 0);
 
-  return { itemsForCard, setCartItems, totalPrice };
+  return { itemsForCard, setCartItem, totalPrice };
 };
