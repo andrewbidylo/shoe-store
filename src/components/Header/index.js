@@ -1,6 +1,13 @@
 import styles from './Header.module.scss'
 import {Link} from "react-router-dom";
+import {AppContext} from '../../context'
+import {useState, useContext} from 'react'
+
 function Header (props){
+
+  const {itemsForCard} = useContext(AppContext)
+  const totalPrice = itemsForCard.reduce((sum, obj) => obj.price + sum, 0)
+
   return (
     <header className="d-flex justify-between align-center p-40">
     <Link to='/'>
@@ -16,7 +23,7 @@ function Header (props){
         <li className='mr-30 cu-p' onClick={()=>{props.onClickCart()}}>
           <img src='/img/cart.svg' alt='Cart' />
           <span>
-            $100
+            {totalPrice}
           </span>
         </li>
         <li>
