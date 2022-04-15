@@ -1,16 +1,16 @@
 import styles from './Drawer.module.scss'
 import Info from "../Info"
-import {useState, useContext} from 'react'
-import {AppContext} from '../../context'
+import {useState} from 'react'
 import axios from 'axios'
+import {useCart} from '../../hooks/useCart'
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const Drawer = ({ onCloseDrawer, onRemoveItem }) => {
 const [isOrderComplete, setIsOrderComplete] = useState(false)
 const [orderId, setOrderId] = useState(null)
-const {itemsForCard, setCartItem} = useContext(AppContext)
-const totalPrice = itemsForCard.reduce((sum, obj) => obj.price + sum, 0)
+const {itemsForCard,setCartItem,totalPrice} = useCart()
+
 const onClickOrder = async () => {
   try {
     const {data} = await axios.post('https://61c3afad9cfb8f0017a3ec85.mockapi.io/orders',{items: itemsForCard})

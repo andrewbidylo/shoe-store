@@ -1,13 +1,10 @@
 import styles from './Header.module.scss'
 import {Link} from "react-router-dom";
-import {AppContext} from '../../context'
-import {useState, useContext} from 'react'
-
+import {useCart} from '../../hooks/useCart'
 function Header (props){
 
-  const {itemsForCard} = useContext(AppContext)
-  const totalPrice = itemsForCard.reduce((sum, obj) => obj.price + sum, 0)
-
+  const {totalPrice} = useCart()
+  
   return (
     <header className="d-flex justify-between align-center p-40">
     <Link to='/'>
