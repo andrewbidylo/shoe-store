@@ -1,8 +1,5 @@
 import Card from '../components/Card';
 
-
-
-
 const Home = ({ searchValue, setSearchValue, items, onAddtoCart, onAddToFavorite, isLoading }) => {
 
   const renderItems = () => {
@@ -18,8 +15,8 @@ const Home = ({ searchValue, setSearchValue, items, onAddtoCart, onAddToFavorite
       />
     ))
   };
-  return (
 
+  return (
     <section className='content p-40'>
       <div className='d-flex align-center justify-between mb-40'>
         <h1>{searchValue ? `Search: ${searchValue}` : 'All Shoes'}</h1>
@@ -29,11 +26,10 @@ const Home = ({ searchValue, setSearchValue, items, onAddtoCart, onAddToFavorite
           <input onChange={(event) => setSearchValue(event.target.value)} value={searchValue} placeholder='Search'></input>
         </div>
       </div>
-      <div className='allSneackers d-flex justify-between flex-wrap '>
+      <div className='d-flex flex-wrap'>
         {renderItems()}
       </div>
     </section>
-
   )
 }
 

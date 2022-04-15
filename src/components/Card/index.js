@@ -2,7 +2,7 @@ import styles from './Card.module.scss'
 import React, { useState } from 'react'
 import ContentLoader from 'react-content-loader'
 import { useContext } from 'react'
-import {AppContext} from '../../context'
+import { AppContext } from '../../context'
 
 const Card = ({
   id,
@@ -15,10 +15,8 @@ const Card = ({
   loading
 }) => {
 
-  const {isItemAdded} = useContext(AppContext)
+  const { isItemAdded } = useContext(AppContext)
   const [isFavorite, setIsFavorite] = useState(favorited)
-  // Pass {title, price, imageURL} from the selected item to the Card. 
-  // Change the Cart's status.  
 
   const onClickPlus = () => {
     onClickAdd({ id, title, price, imageURL })
@@ -28,7 +26,6 @@ const Card = ({
     onClickFavorite({ id, title, price, imageURL })
     setIsFavorite(!isFavorite)
   }
-
 
   return (
     <div className={styles.card}>

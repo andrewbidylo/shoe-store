@@ -1,36 +1,34 @@
 import styles from './Drawer.module.scss'
 import Info from "../Info"
-import {useState} from 'react'
+import { useState } from 'react'
 import axios from 'axios'
-import {useCart} from '../../hooks/useCart'
+import { useCart } from '../../hooks/useCart'
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const Drawer = ({ onCloseDrawer, onRemoveItem }) => {
-const [isOrderComplete, setIsOrderComplete] = useState(false)
-const [orderId, setOrderId] = useState(null)
-const {itemsForCard,setCartItem,totalPrice} = useCart()
+  const [isOrderComplete, setIsOrderComplete] = useState(false)
+  const [orderId, setOrderId] = useState(null)
+  const { itemsForCard, setCartItem, totalPrice } = useCart()
 
-const onClickOrder = async () => {
-  try {
-    const {data} = await axios.post('https://61c3afad9cfb8f0017a3ec85.mockapi.io/orders',{items: itemsForCard})
-   
-    setOrderId(data.id)
-    setIsOrderComplete(true)
-    setCartItem([])
+  const onClickOrder = async () => {
+    try {
+      const { data } = await axios.post('https://61c3afad9cfb8f0017a3ec85.mockapi.io/orders', { items: itemsForCard })
 
-    for (let i = 0; i < itemsForCard.length; i++) {
-      const item = itemsForCard[i];
-      await axios.delete('https://61c3afad9cfb8f0017a3ec85.mockapi.io/cart/' + item.id);
-      await delay(1000);
+      setOrderId(data.id)
+      setIsOrderComplete(true)
+      setCartItem([])
+
+      for (let i = 0; i < itemsForCard.length; i++) {
+        const item = itemsForCard[i];
+        await axios.delete('https://61c3afad9cfb8f0017a3ec85.mockapi.io/cart/' + item.id);
+        await delay(1000);
+      }
+    } catch (error) {
+      alert('Order did not create')
     }
 
-  } catch (error){
-    alert('Order did not create')
-
   }
-  
-}
   return (
     <div className='overlay'>
       <div className={styles.drawer}>
@@ -41,9 +39,7 @@ const onClickOrder = async () => {
         {itemsForCard.length > 0 ? (
           <div className='d-flex flex-column flex"'>
             <div className={styles.items}>
-
-              {itemsForCard.map(item => ( 
-              
+              {itemsForCard.map(item => (
                 <div key={item.id} className={styles.cartItem}>
                   <img src={item.imageURL} alt='plus' className={styles.sneakersPic} />
 
@@ -51,17 +47,13 @@ const onClickOrder = async () => {
                     <p className={styles.cartDiscription}>{item.title}</p>
                     <b>${item.price}</b>
                   </div>
-
                   <img
                     onClick={() => onRemoveItem(item.id)}
                     className={styles.removeBtn} src='/img/btn-remove.svg'
                     alt='remove'
                   />
-
                 </div>
-
               ))}
-
             </div>
             <div className='cartTotalBlock'>
               <ul>
@@ -82,11 +74,9 @@ const onClickOrder = async () => {
               </button>
             </div>
           </div>
-
         ) : (
-
-          <Info 
-          title={isOrderComplete ? 'Order is completed!' : 'Cart is empty'}
+          <Info
+            title={isOrderComplete ? 'Order is completed!' : 'Cart is empty'}
             description={
               isOrderComplete
                 ? `Your order ${orderId} is going to be sent soon`
@@ -94,7 +84,6 @@ const onClickOrder = async () => {
             }
             image={isOrderComplete ? 'img/complete-order.jpg' : 'img/empty-cart.jpg'}
           />
-
         )}
       </div>
     </div>
