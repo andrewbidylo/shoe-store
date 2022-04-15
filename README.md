@@ -7,13 +7,13 @@ Beackend: mockapi.io
 ## Final Product
 
 
-!["home_page1"]("")
+!["home_page1"](https://github.com/andrewbidylo/shoes-store/blob/master/docs/home_page1.png?raw=true)
 
-!["home_page2"]("")
+!["home_page2"](https://github.com/andrewbidylo/shoes-store/blob/master/docs/home_page2.png?raw=true)
 
-!["home_page3"]('')
+!["home_page3"](https://github.com/andrewbidylo/shoes-store/blob/master/docs/home_page3.png?raw=true)
 
-!["home_page4"]("")
+!["home_page4"](https://github.com/andrewbidylo/shoes-store/blob/master/docs/home_page4.png?raw=true)
 
 ## Dependencies
 
