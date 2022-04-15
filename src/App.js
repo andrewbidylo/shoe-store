@@ -6,6 +6,8 @@ import { Route, Routes } from "react-router-dom";
 import Home from './pages/Home'
 import Favorites from './pages/Favorites';
 import { AppContext } from './context';
+import Orders from './pages/Orders'
+
 
 const App = () => {
 
@@ -92,6 +94,7 @@ const isItemAdded = (id) => {
           />}
         />
         <Route path="/favorites" exact element={<Favorites/>} />
+        <Route path="/orders" exact element={<Orders/>} />
 
       </Routes>
     </div>
