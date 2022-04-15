@@ -9,18 +9,18 @@ const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const Drawer = ({ onCloseDrawer, onRemoveItem }) => {
   const [isOrderComplete, setIsOrderComplete] = useState(false)
   const [orderId, setOrderId] = useState(null)
-  const { itemsForCard, setCartItem, totalPrice } = useCart()
+  const { itemsForCart, setCartItem, totalPrice } = useCart()
 
   const onClickOrder = async () => {
     try {
-      const { data } = await axios.post('https://61c3afad9cfb8f0017a3ec85.mockapi.io/orders', { items: itemsForCard })
+      const { data } = await axios.post('https://61c3afad9cfb8f0017a3ec85.mockapi.io/orders', { items: itemsForCart })
 
       setOrderId(data.id)
       setIsOrderComplete(true)
       setCartItem([])
 
-      for (let i = 0; i < itemsForCard.length; i++) {
-        const item = itemsForCard[i];
+      for (let i = 0; i < itemsForCart.length; i++) {
+        const item = itemsForCart[i];
         await axios.delete('https://61c3afad9cfb8f0017a3ec85.mockapi.io/cart/' + item.id);
         await delay(1000);
       }
@@ -32,14 +32,14 @@ const Drawer = ({ onCloseDrawer, onRemoveItem }) => {
   return (
     <div className='overlay'>
       <div className={styles.drawer}>
-        <h2 className='mb-30 d-flex justify-between'>Card
+        <h2 className='mb-30 d-flex justify-between'>Cart
           <img className={styles.removeBtn} src='/img/btn-remove.svg' alt='Close' onClick={onCloseDrawer} />
         </h2>
 
-        {itemsForCard.length > 0 ? (
+        {itemsForCart.length > 0 ? (
           <div className='d-flex flex-column flex"'>
             <div className={styles.items}>
-              {itemsForCard.map(item => (
+              {itemsForCart.map(item => (
                 <div key={item.id} className={styles.cartItem}>
                   <img src={item.imageURL} alt='plus' className={styles.sneakersPic} />
 

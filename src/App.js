@@ -12,7 +12,7 @@ const App = () => {
 
   const [items, setItems] = useState([])
   const [cartOpened, setCartOpened] = useState(false)
-  const [itemsForCard, setCartItem] = useState([])
+  const [itemsForCart, setCartItem] = useState([])
   const [searchValue, setSearchValue] = useState('')
   const [favorites, setFavorites] = useState([])
   const [isLoading, setIsLoading] = useState(true)
@@ -50,7 +50,7 @@ const App = () => {
   // Add selected item to the DB and to the local state.
   const onAddtoCart = async (obj) => {
     try {
-      if (itemsForCard.find((item => Number(item.id) === Number(obj.id)))) {
+      if (itemsForCart.find((item => Number(item.id) === Number(obj.id)))) {
         setCartItem(prev => prev.filter(item => Number(item.id) !== Number(obj.id)))
         await axios.delete(`https://61c3afad9cfb8f0017a3ec85.mockapi.io/cart/${obj.id}`)
       } else {
@@ -77,12 +77,12 @@ const App = () => {
     }
   }
   const isItemAdded = (id) => {
-    return itemsForCard.some(obj => Number(obj.id) === Number(id))
+    return itemsForCart.some(obj => Number(obj.id) === Number(id))
   }
   return (
-    <AppContext.Provider value={{ items, itemsForCard, onAddtoCart, onAddToFavorite, favorites, isItemAdded, setCartOpened, setCartItem }}>
+    <AppContext.Provider value={{ items, itemsForCart, onAddtoCart, onAddToFavorite, favorites, isItemAdded, setCartOpened, setCartItem }}>
       <div className="wrapper clear">
-        {cartOpened ? <Drawer onRemoveItem={onRemoveItem} itemsForCard={itemsForCard} onCloseDrawer={() => { setCartOpened(false) }} /> : null}
+        {cartOpened ? <Drawer onRemoveItem={onRemoveItem} itemsForCart={itemsForCart} onCloseDrawer={() => { setCartOpened(false) }} /> : null}
         <Header onClickCart={() => { setCartOpened(true) }} />
         <Routes>
           <Route path="/" exact element={
@@ -90,7 +90,7 @@ const App = () => {
               searchValue={searchValue}
               setSearchValue={setSearchValue}
               items={items} onAddtoCart={onAddtoCart}
-              itemsForCard={itemsForCard}
+              itemsForCart={itemsForCart}
               isLoading={isLoading}
               onAddToFavorite={onAddToFavorite}
             />}
