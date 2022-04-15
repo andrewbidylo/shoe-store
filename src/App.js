@@ -23,10 +23,11 @@ const App = () => {
 
   useEffect(() => {
     async function fetchData() {
-      setIsLoading(true)
-      const cartResp = await axios.get('https://61c3afad9cfb8f0017a3ec85.mockapi.io/cart')
-      const favItemsResp = await axios.get('https://61c3afad9cfb8f0017a3ec85.mockapi.io/favoriteItems')
-      const itemsResp = await axios.get('https://61c3afad9cfb8f0017a3ec85.mockapi.io/items')
+      const [cartResp, favItemsResp, itemsResp] = await Promise.all([
+        axios.get('https://61c3afad9cfb8f0017a3ec85.mockapi.io/cart'),
+        axios.get('https://61c3afad9cfb8f0017a3ec85.mockapi.io/favoriteItems'),
+        axios.get('https://61c3afad9cfb8f0017a3ec85.mockapi.io/items')
+      ])
       setIsLoading(false)
       
       setCartItem(cartResp.data)
@@ -38,26 +39,28 @@ const App = () => {
   }, [])
 
   // Remove item from the Card. From the DB and DOM.
-  const onRemoveItem = (id) => {
-    axios.delete(`https://61c3afad9cfb8f0017a3ec85.mockapi.io/cart/${id}`)
-    setCartItem(prev => prev.filter(item => item.id !== id))
+  const onRemoveItem = async (id) => {
+    try {
+      await axios.delete(`https://61c3afad9cfb8f0017a3ec85.mockapi.io/cart/${id}`)
+      setCartItem(prev => prev.filter(item => item.id !== id))
+    } catch (error) {
+      alert('Some error!')
+    }
   }
 
   // Add selected item to the DB and to the local state.
-  const onAddtoCart = (obj) => {
+  const onAddtoCart = async (obj) => {
     try {
       if (itemsForCard.find((item => Number(item.id) === Number(obj.id)))) {
-        axios.delete(`https://61c3afad9cfb8f0017a3ec85.mockapi.io/cart/${obj.id}`)
         setCartItem(prev => prev.filter(item => Number(item.id) !== Number(obj.id)))
+        await axios.delete(`https://61c3afad9cfb8f0017a3ec85.mockapi.io/cart/${obj.id}`)
       } else {
-        axios.post('https://61c3afad9cfb8f0017a3ec85.mockapi.io/cart', obj)
         setCartItem(prev => [...prev, obj])
+        await axios.post('https://61c3afad9cfb8f0017a3ec85.mockapi.io/cart', obj)
       }
     } catch (error) {
       alert('Some error!')
-
     }
-
   }
 
   const onAddToFavorite = async (obj) => {
