@@ -3,7 +3,6 @@ import { AppContext } from '../context'
 import { useContext } from 'react'
 
 
-
 const Info = ({title, image, description}) => {
   const {setCartOpened} = useContext(AppContext)
   return (

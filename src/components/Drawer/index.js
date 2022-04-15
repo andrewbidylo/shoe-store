@@ -1,7 +1,36 @@
 import styles from './Drawer.module.scss'
 import Info from "../Info"
-const Drawer = ({ itemsForCard = [], onCloseDrawer, onRemoveItem }) => {
+import {useState, useContext} from 'react'
+import {AppContext} from '../../context'
+import axios from 'axios'
 
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+const Drawer = ({ onCloseDrawer, onRemoveItem }) => {
+const [isOrderComplete, setIsOrderComplete] = useState(false)
+const [orderId, setOrderId] = useState(null)
+const {itemsForCard, setCartItem} = useContext(AppContext)
+
+const onClickOrder = async () => {
+  try {
+    const {data} = await axios.post('https://61c3afad9cfb8f0017a3ec85.mockapi.io/orders',{items: itemsForCard})
+   
+    setOrderId(data.id)
+    setIsOrderComplete(true)
+    setCartItem([])
+
+    for (let i = 0; i < itemsForCard.length; i++) {
+      const item = itemsForCard[i];
+      await axios.delete('https://61c3afad9cfb8f0017a3ec85.mockapi.io/cart/' + item.id);
+      await delay(1000);
+    }
+
+  } catch (error){
+    alert('Order did not create')
+
+  }
+  
+}
   return (
     <div className='overlay'>
       <div className={styles.drawer}>
@@ -47,7 +76,7 @@ const Drawer = ({ itemsForCard = [], onCloseDrawer, onRemoveItem }) => {
                   <b>$40</b>
                 </li>
               </ul>
-              <button className={styles.greenButton}>
+              <button onClick={onClickOrder} className={styles.greenButton}>
                 Buy
                 <img src='/img/arrow.svg' alt='arrow' />
               </button>
@@ -56,7 +85,15 @@ const Drawer = ({ itemsForCard = [], onCloseDrawer, onRemoveItem }) => {
 
         ) : (
 
-          <Info title="Cart is empty" description="" image={"/img/empty-cart.jpg"} />
+          <Info 
+          title={isOrderComplete ? 'Order is completed!' : 'Cart is empty'}
+            description={
+              isOrderComplete
+                ? `Your order ${orderId} is going to be sent soon`
+                : 'Please add at least one item to the cart'
+            }
+            image={isOrderComplete ? 'img/complete-order.jpg' : 'img/empty-cart.jpg'}
+          />
 
         )}
       </div>
