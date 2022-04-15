@@ -10,7 +10,7 @@ const Drawer = ({ onCloseDrawer, onRemoveItem }) => {
 const [isOrderComplete, setIsOrderComplete] = useState(false)
 const [orderId, setOrderId] = useState(null)
 const {itemsForCard, setCartItem} = useContext(AppContext)
-
+const totalPrice = itemsForCard.reduce((sum, obj) => obj.price + sum, 0)
 const onClickOrder = async () => {
   try {
     const {data} = await axios.post('https://61c3afad9cfb8f0017a3ec85.mockapi.io/orders',{items: itemsForCard})
@@ -66,14 +66,14 @@ const onClickOrder = async () => {
             <div className='cartTotalBlock'>
               <ul>
                 <li>
-                  <span>Sum:</span>
+                  <span>Price:</span>
                   <div></div>
-                  <b>$300</b>
+                  <b>${totalPrice}</b>
                 </li>
                 <li>
-                  <span>Tax:</span>
+                  <span>Total price (with tax):</span>
                   <div></div>
-                  <b>$40</b>
+                  <b>${totalPrice / 100 * 14 + totalPrice}</b>
                 </li>
               </ul>
               <button onClick={onClickOrder} className={styles.greenButton}>
