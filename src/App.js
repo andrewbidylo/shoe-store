@@ -22,24 +22,24 @@ const App = () => {
 
   useEffect(() => {
     async function fetchData() {
-      
+
       try {
-       const cartResp = await axios.get('cart')
-       setCartItem(cartResp.data)
-      }catch (error) {
+        const cartResp = await axios.get('https://61c3afad9cfb8f0017a3ec85.mockapi.io/cart')
+        setCartItem(cartResp.data)
+      } catch (error) {
         console.error(error)
       }
       try {
-        const favItemsResp = await axios.get('favoriteItems')
+        const favItemsResp = await axios.get('https://61c3afad9cfb8f0017a3ec85.mockapi.io/favoriteItems')
         setFavorites(favItemsResp.data)
-      }catch (error) {
+      } catch (error) {
         console.error(error)
       }
       try {
-        const itemsResp = await axios.get('items')
+        const itemsResp = await axios.get('https://61c3afad9cfb8f0017a3ec85.mockapi.io/items')
         setIsLoading(false)
         setItems(itemsResp.data)
-      }catch (error) {
+      } catch (error) {
         console.error(error)
       }
     }
@@ -49,7 +49,7 @@ const App = () => {
   // Remove item from the Card. From the DB and DOM.
   const onRemoveItem = async (id) => {
     try {
-      await axios.delete(`cart/${id}`)
+      await axios.delete(`https://61c3afad9cfb8f0017a3ec85.mockapi.io/cart/${id}`)
       setCartItem(prev => prev.filter(item => Number(item.id) !== Number(id)))
     } catch (error) {
       alert('Some error!')
@@ -62,12 +62,12 @@ const App = () => {
       const findItem = itemsForCart.find((item => Number(item.perentId) === Number(obj.id)))
       if (findItem) {
         setCartItem(prev => prev.filter(item => Number(item.perentId) !== Number(obj.id)))
-        await axios.delete(`cart/${findItem.id}`)
+        await axios.delete(`https://61c3afad9cfb8f0017a3ec85.mockapi.io/cart/${findItem.id}`)
       } else {
         setCartItem(prev => [...prev, obj])
-        const {data} = await  axios.post('cart', obj)
+        const { data } = await axios.post('https://61c3afad9cfb8f0017a3ec85.mockapi.io/cart', obj)
         setCartItem(prev => prev.map(item => {
-          if(item.perentId === data.perentId) {
+          if (item.perentId === data.perentId) {
             return {
               ...item,
               id: data.id
@@ -84,10 +84,10 @@ const App = () => {
   const onAddToFavorite = async (obj) => {
     try {
       if (favorites.find((item => Number(item.id) === Number(obj.id)))) {
-        axios.delete(`favoriteItems/${obj.id}`)
+        axios.delete(`https://61c3afad9cfb8f0017a3ec85.mockapi.io/favoriteItems/${obj.id}`)
         setFavorites(prev => prev.filter(item => item.id !== obj.id))
       } else {
-        const { data } = await axios.post('favoriteItems', obj)
+        const { data } = await axios.post('https://61c3afad9cfb8f0017a3ec85.mockapi.io/favoriteItems', obj)
         setFavorites(prev => [...prev, data])
 
       }
