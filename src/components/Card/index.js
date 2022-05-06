@@ -6,19 +6,17 @@ import { AppContext } from '../../context'
 
 const Card = ({
   id,
-  perentId,
   title,
   price,
   imageURL,
   onClickAdd,
   onClickFavorite,
   favorited = false,
-  loading
+  loading,
 }) => {
 
   const { isItemAdded } = useContext(AppContext)
   const [isFavorite, setIsFavorite] = useState(favorited)
-
   const onClickPlus = () => { 
     onClickAdd({ id, perentId: id, title, price, imageURL })
   }
@@ -27,7 +25,7 @@ const Card = ({
     onClickFavorite({ id, perentId: id, title, price, imageURL })
     setIsFavorite(!isFavorite)
   }
-
+ 
   return (
     <div className={styles.card}>
       {loading ? (
@@ -48,7 +46,7 @@ const Card = ({
         <>
           {onClickFavorite && (
             <div className={styles.favorite} onClick={onClickFavoriteButton}>
-              <img src={isFavorite ? 'img/liked.svg' : 'img/unliked.svg'} alt="Unliked" />
+              <img src={isFavorite  ? 'img/liked.svg' : 'img/unliked.svg'} alt="Unliked" />
             </div>
           )}
           <img width="100%" height={180} src={imageURL} alt="Sneakers" />

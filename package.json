@@ -1,5 +1,4 @@
 {
-  "proxy": "https://61c3afad9cfb8f0017a3ec85.mockapi.io/",
   "name": "new-store",
   "version": "0.1.0",
   "private": true,

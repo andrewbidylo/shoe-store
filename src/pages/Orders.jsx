@@ -11,9 +11,10 @@ const Orders = () => {
       try {
         const { data } = await axios.get('https://61c3afad9cfb8f0017a3ec85.mockapi.io/orders')
         setOrders(data.reduce((prev, obj) => [...prev, ...obj.items], []));
-        setIsLoading(false)
       } catch (error) {
-        alert("Error")
+        console.error(error)
+      } finally {
+        setIsLoading(false)
       }
     })()
 
