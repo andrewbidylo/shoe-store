@@ -22,11 +22,11 @@ const App = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const [cartResp, favItemsResp, itemsResp] = await Promise.all([
-        axios.get('https://61c3afad9cfb8f0017a3ec85.mockapi.io/cart'),
-        axios.get('https://61c3afad9cfb8f0017a3ec85.mockapi.io/favoriteItems'),
-        axios.get('https://61c3afad9cfb8f0017a3ec85.mockapi.io/items')
-      ])
+     
+      const cartResp = await axios.get('https://61c3afad9cfb8f0017a3ec85.mockapi.io/cart')
+      const favItemsResp = await axios.get('https://61c3afad9cfb8f0017a3ec85.mockapi.io/favoriteItems')
+      const itemsResp = await axios.get('https://61c3afad9cfb8f0017a3ec85.mockapi.io/items')
+     
       setIsLoading(false)
 
       setCartItem(cartResp.data)
