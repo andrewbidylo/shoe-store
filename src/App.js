@@ -22,17 +22,26 @@ const App = () => {
 
   useEffect(() => {
     async function fetchData() {
-     
-      const cartResp = await axios.get('https://61c3afad9cfb8f0017a3ec85.mockapi.io/cart')
-      const favItemsResp = await axios.get('https://61c3afad9cfb8f0017a3ec85.mockapi.io/favoriteItems')
-      const itemsResp = await axios.get('https://61c3afad9cfb8f0017a3ec85.mockapi.io/items')
-     
-      setIsLoading(false)
-
-      setCartItem(cartResp.data)
-      setFavorites(favItemsResp.data)
-      setItems(itemsResp.data)
-
+      
+      try {
+       const cartResp = await axios.get('https://61c3afad9cfb8f0017a3ec85.mockapi.io/cart')
+       setCartItem(cartResp.data)
+      }catch (error) {
+        console.error(error)
+      }
+      try {
+        const favItemsResp = await axios.get('https://61c3afad9cfb8f0017a3ec85.mockapi.io/favoriteItems')
+        setFavorites(favItemsResp.data)
+      }catch (error) {
+        console.error(error)
+      }
+      try {
+        const itemsResp = await axios.get('https://61c3afad9cfb8f0017a3ec85.mockapi.io/items')
+        setIsLoading(false)
+        setItems(itemsResp.data)
+      }catch (error) {
+        console.error(error)
+      }
     }
     fetchData()
   }, [])
