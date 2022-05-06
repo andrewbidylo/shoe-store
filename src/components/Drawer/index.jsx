@@ -4,9 +4,12 @@ import { useState } from 'react'
 import axios from 'axios'
 import { useCart } from '../../hooks/useCart'
 
+
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-const Drawer = ({ onCloseDrawer, onRemoveItem }) => {
+
+
+const Drawer  = ({ onCloseDrawer, onRemoveItem }) => {
   const [isOrderComplete, setIsOrderComplete] = useState(false)
   const [orderId, setOrderId] = useState(null)
   const { itemsForCart, setCartItem, totalPrice } = useCart()
