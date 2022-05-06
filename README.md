@@ -1,6 +1,6 @@
 # Runner / e-commerce app
 
-Runner is a single-page e-commerce applaction, build with React, JS, HTML, CSS3, SASS, AJAX. 
+Runner is a single-page e-commerce applaction, build with React, JavaScript, TypeScript, HTML, CSS3, SASS, AJAX. 
 Back-end: mockapi.io
 
 
