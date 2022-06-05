@@ -1,4 +1,4 @@
-import App from "../App"
+import App from "./App"
 import { screen, act, render } from '@testing-library/react';
 import axios from 'axios';
 import { MemoryRouter } from "react-router-dom";
@@ -8,7 +8,13 @@ import ShallowRenderer from 'react-test-renderer/shallow';
 // Shallow render
 const renderer = new ShallowRenderer();
 
-jest.mock('axios')
+jest.mock('axios', () => ({
+  ...jest.requireActual('axios'),
+  post: jest.fn(),
+  get: jest.fn(),
+  delete: jest.fn()
+
+}))
 
 describe("App component", () => {
 
@@ -50,9 +56,9 @@ describe("App component", () => {
   }
   )
 
-  it('should render App component', async () => {
-    const component = renderer.render(<App />)
-    expect(component).toMatchSnapshot()
+  it('should render App component without crashing"', async () => {
+    renderer.render(<App />)
+  
   })
 
   it("should call axios get 3 times", async () => {
@@ -66,11 +72,14 @@ describe("App component", () => {
     expect(shoes).toBeVisible()
   })
 
-  // it('should show an error', async () => {
-  //  const comp = render(<App />)
-  //   expect(comp).toBeCalledWith("Some error!");
-  // })
-  
+  it('should hendel the errors when sent get request', async () => {
+    const customErrorMessage = { message: "There is an error occurred" }
+    axios.get.mockRejectedValue(() => Promise.reject(new Error(customErrorMessage.message)))
+    await act(async () => setUp())
+    try {
+      expect(axios.get).toBeCalledTimes(3)
+    } catch (error) {
+      await expect(error.message).rejects.toEqual(customErrorMessage.message)
+    }
+  })
 })
-
-
