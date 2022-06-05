@@ -17,11 +17,12 @@ const App = () => {
   const [favorites, setFavorites] = useState([])
   const [isLoading, setIsLoading] = useState(true)
 
+
   // Get items from server (first render) and hendeling errors.
-  // Set get data to state.
+  // Set get data to the state.
 
   useEffect(() => {
-    async function fetchData() {
+     async function fetchData() {
 
       try {
         const cartResp = await axios.get('https://61c3afad9cfb8f0017a3ec85.mockapi.io/cart')

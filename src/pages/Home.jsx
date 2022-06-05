@@ -26,7 +26,7 @@ const Home = ({ searchValue, setSearchValue, items, onAddtoCart, onAddToFavorite
           <input onChange={(event) => setSearchValue(event.target.value)} value={searchValue} placeholder='Search'></input>
         </div>
       </div>
-      <div className='d-flex flex-wrap'>
+      <div className='d-flex flex-wrap' data-testid="items">
         {renderItems()}
       </div>
     </section>

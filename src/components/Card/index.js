@@ -54,7 +54,7 @@ const Card = ({
           <div className="d-flex justify-between align-center">
             <div className="d-flex flex-column">
               <span>Price:</span>
-              <b>${price}</b>
+              <b className="price">${price}</b>
             </div>
             {onClickAdd && (
               <img onClick={onClickPlus}
