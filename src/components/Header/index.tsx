@@ -30,12 +30,12 @@ const Header:React.FC<HeaderProps> = ({onClickCart}) => {
           </span>
         </li>
         <li>
-          <Link to='/favorites'>
+          <Link data-testid="favorites-link" to='/favorites'>
             <img className='mr-20 cu-p' src='/img/heart.svg' alt='Favorites' />
           </Link>
         </li>
         <li>
-          <Link to='/orders'>
+          <Link data-testid="orders-link" to='/orders'>
             <img className='cu-p' src='/img/user.svg' alt='User' />
           </Link>
         </li>

@@ -58,7 +58,7 @@ describe("App component", () => {
 
   it('should render App component without crashing"', async () => {
     renderer.render(<App />)
-  
+
   })
 
   it("should call axios get 3 times", async () => {
@@ -79,7 +79,9 @@ describe("App component", () => {
     try {
       expect(axios.get).toBeCalledTimes(3)
     } catch (error) {
+      // eslint-disable-next-line jest/no-conditional-expect
       await expect(error.message).rejects.toEqual(customErrorMessage.message)
     }
   })
+  
 })
