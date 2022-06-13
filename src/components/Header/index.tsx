@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useCart } from '../../hooks/useCart'
 import React from 'react'
 
+
 interface HeaderProps {
   onClickCart: () => void
 }

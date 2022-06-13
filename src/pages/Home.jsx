@@ -1,6 +1,10 @@
 import Card from '../components/Card';
+import React,{useState} from 'react'
 
-const Home = ({ searchValue, setSearchValue, items, onAddtoCart, onAddToFavorite, isLoading }) => {
+
+const Home =  ({  items, onAddtoCart, onAddToFavorite, isLoading }) => {
+
+ const [searchValue, setSearchValue] = useState('')
 
   const renderItems = () => {
     const filteredItmes = items.filter((item) => item.title.toLowerCase().includes(searchValue.toLowerCase()))

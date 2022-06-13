@@ -8,7 +8,6 @@ import { useCart } from '../../hooks/useCart'
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 
-
 const Drawer  = ({ onCloseDrawer, onRemoveItem }) => {
   const [isOrderComplete, setIsOrderComplete] = useState(false)
   const [orderId, setOrderId] = useState(null)

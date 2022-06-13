@@ -8,12 +8,12 @@ import { Route, Routes } from "react-router-dom";
 import axios from 'axios';
 import { AppContext } from './context';
 
+
 const App = () => {
 
   const [items, setItems] = useState([])
   const [cartOpened, setCartOpened] = useState(false)
   const [itemsForCart, setCartItem] = useState([])
-  const [searchValue, setSearchValue] = useState('')
   const [favorites, setFavorites] = useState([])
   const [isLoading, setIsLoading] = useState(true)
 
@@ -107,8 +107,6 @@ const App = () => {
         <Routes>
           <Route path="/" exact element={
             <Home
-              searchValue={searchValue}
-              setSearchValue={setSearchValue}
               items={items} onAddtoCart={onAddtoCart}
               itemsForCart={itemsForCart}
               isLoading={isLoading}

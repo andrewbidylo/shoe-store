@@ -2,6 +2,7 @@ import styles from '../components/Drawer/Drawer.module.scss'
 import { AppContext } from '../context'
 import { useContext } from 'react'
 
+
 const Info = ({ title, image, description }) => {
   const { setCartOpened } = useContext(AppContext)
   return (

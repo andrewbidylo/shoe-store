@@ -4,6 +4,7 @@ import ContentLoader from 'react-content-loader'
 import { useContext } from 'react'
 import { AppContext } from '../../context'
 
+
 const Card = ({
   id,
   title,
@@ -17,6 +18,7 @@ const Card = ({
 
   const { isItemAdded } = useContext(AppContext)
   const [isFavorite, setIsFavorite] = useState(favorited)
+
   const onClickPlus = () => { 
     onClickAdd({ id, perentId: id, title, price, imageURL })
   }
@@ -29,6 +31,7 @@ const Card = ({
   return (
     <div className={styles.card}>
       {loading ? (
+        // Placeholder loadings
         <ContentLoader
           speed={2}
           width={180}
