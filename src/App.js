@@ -18,6 +18,7 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(true)
 
 
+
   // Get items from server (first render) and hendeling errors.
   // Set get data to the state.
 
@@ -83,10 +84,11 @@ const App = () => {
   }
 
   const onAddToFavorite = async (obj) => {
+    let foundElement = favorites.find((item => Number(item.perentId) === Number(obj.perentId)))
     try {
-      if (favorites.find((item => Number(item.id) === Number(obj.id)))) {
-        axios.delete(`https://61c3afad9cfb8f0017a3ec85.mockapi.io/favoriteItems/${obj.id}`)
-        setFavorites(prev => prev.filter(item => item.id !== obj.id))
+      if (foundElement) {
+        axios.delete(`https://61c3afad9cfb8f0017a3ec85.mockapi.io/favoriteItems/${foundElement.id}`)
+        setFavorites(prev => prev.filter(item => item.perentId !== obj.perentId))
       } else {
         const { data } = await axios.post('https://61c3afad9cfb8f0017a3ec85.mockapi.io/favoriteItems', obj)
         setFavorites(prev => [...prev, data])
@@ -100,7 +102,7 @@ const App = () => {
     return itemsForCart.some(obj => Number(obj.perentId) === Number(id))
   }
   return (
-    <AppContext.Provider value={{ items, itemsForCart, onAddtoCart, onAddToFavorite, favorites, isItemAdded, setCartOpened, setCartItem }}>
+    <AppContext.Provider value={{items, itemsForCart, onAddtoCart, onAddToFavorite, favorites, setFavorites, isItemAdded, setCartOpened, setCartItem }}>
       <div className="wrapper clear">
         {cartOpened ? <Drawer onRemoveItem={onRemoveItem} itemsForCart={itemsForCart} onCloseDrawer={() => { setCartOpened(false) }} /> : null}
         <Header onClickCart={() => { setCartOpened(true) }} />

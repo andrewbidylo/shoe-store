@@ -1,5 +1,4 @@
 import styles from './Card.module.scss'
-import React, { useState } from 'react'
 import ContentLoader from 'react-content-loader'
 import { useContext } from 'react'
 import { AppContext } from '../../context'
@@ -12,12 +11,11 @@ const Card = ({
   imageURL,
   onClickAdd,
   onClickFavorite,
-  favorited = false,
   loading,
 }) => {
 
-  const { isItemAdded } = useContext(AppContext)
-  const [isFavorite, setIsFavorite] = useState(favorited)
+
+  const { isItemAdded, favorites } = useContext(AppContext)
 
   const onClickPlus = () => { 
     onClickAdd({ id, perentId: id, title, price, imageURL })
@@ -25,7 +23,6 @@ const Card = ({
 
   const onClickFavoriteButton = () => {
     onClickFavorite({ id, perentId: id, title, price, imageURL })
-    setIsFavorite(!isFavorite)
   }
  
   return (
@@ -49,7 +46,7 @@ const Card = ({
         <>
           {onClickFavorite && (
             <div className={styles.favorite} onClick={onClickFavoriteButton}>
-              <img src={isFavorite  ? 'img/liked.svg' : 'img/unliked.svg'} alt="Unliked" />
+              <img src={favorites.some((el)=>Number(el.perentId) === Number(id))  ? 'img/liked.svg' : 'img/unliked.svg'} alt="Unliked" />
             </div>
           )}
           <img width="100%" height={180} src={imageURL} alt="Sneakers" />

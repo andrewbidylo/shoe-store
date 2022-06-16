@@ -8,7 +8,7 @@ const Home =  ({  items, onAddtoCart, onAddToFavorite, isLoading }) => {
 
   const renderItems = () => {
     const filteredItmes = items.filter((item) => item.title.toLowerCase().includes(searchValue.toLowerCase()))
-
+    
     return (isLoading ? [...Array(10)] : filteredItmes).map((item, index) => (
       <Card
         key={index}

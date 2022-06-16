@@ -9,9 +9,10 @@ const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 
 const Drawer  = ({ onCloseDrawer, onRemoveItem }) => {
+  
   const [isOrderComplete, setIsOrderComplete] = useState(false)
-  const [orderId, setOrderId] = useState(null)
   const { itemsForCart, setCartItem, totalPrice } = useCart()
+  const [orderId, setOrderId] = useState(null)
 
   const onClickOrder = async () => {
     try {

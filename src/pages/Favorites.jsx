@@ -14,7 +14,7 @@ const Favorites = () => {
       <div className='d-flex flex-wrap '>
         {favorites.map((shoe, index) => (
           <Card
-            id={shoe.id}
+            id={shoe.perentId}
             key={index}
             title={shoe.title}
             price={shoe.price}
