@@ -1,24 +1,30 @@
 import Card from '../components/Card';
-import React,{useState} from 'react'
+import { useState } from 'react'
 
 
-const Home =  ({  items, onAddtoCart, onAddToFavorite, isLoading }) => {
+const Home = ({ items, onAddtoCart, onAddToFavorite, isLoading }) => {
 
- const [searchValue, setSearchValue] = useState('')
+  const [searchValue, setSearchValue] = useState('')
 
   const renderItems = () => {
-    const filteredItmes = items.filter((item) => item.title.toLowerCase().includes(searchValue.toLowerCase()))
-    
-    return (isLoading ? [...Array(10)] : filteredItmes).map((item, index) => (
-      <Card
-        key={index}
-        {...item}
-        onClickAdd={obj => { onAddtoCart(obj) }}
-        onClickFavorite={obj => { onAddToFavorite(obj) }}
-        loading={isLoading}
-      />
-    ))
-  };
+
+    const currentItems = isLoading ? [...Array(10)] : items
+    const renderItems = []
+
+    for (let i = 0; i < currentItems.length; i++) {
+      if (currentItems[i]?.title.toLowerCase().includes(searchValue.toLowerCase()) || currentItems.length === 10)
+        renderItems.push(
+          <Card
+            key={i}
+            {...currentItems[i]}
+            onClickAdd={obj => { onAddtoCart(obj) }}
+            onClickFavorite={obj => { onAddToFavorite(obj) }}
+            loading={isLoading}
+          />
+        )
+    }
+    return renderItems
+  }
 
   return (
     <section className='content p-40'>
